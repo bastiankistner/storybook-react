@@ -11,6 +11,7 @@ exports.default = function (configDir) {
   };
 
   var config = {
+    mode: 'production',
     bail: true,
     devtool: '#cheap-module-source-map',
     entry: entries,
@@ -23,7 +24,7 @@ exports.default = function (configDir) {
       // relative URLs works always.
       publicPath: ''
     },
-    plugins: [new _InterpolateHtmlPlugin2.default(process.env), new _htmlWebpackPlugin2.default({
+    plugins: [new _htmlWebpackPlugin2.default({
       filename: 'index.html',
       chunks: ['manager'],
       data: {
@@ -38,20 +39,9 @@ exports.default = function (configDir) {
         previewHead: (0, _utils2.getPreviewHeadHtml)(configDir)
       },
       template: require.resolve('../iframe.html.ejs')
-    }), new _webpack2.default.DefinePlugin((0, _utils.loadEnv)({ production: true })), new _uglifyjsWebpackPlugin2.default({
-      parallel: true,
-      uglifyOptions: {
-        ie8: false,
-        mangle: false,
-        warnings: false,
-        compress: {
-          keep_fnames: true
-        },
-        output: {
-          comments: false
-        }
-      }
-    }), new _dotenvWebpack2.default({ silent: true })],
+    }),
+    // new InterpolateHtmlPlugin(process.env),
+    new _webpack2.default.DefinePlugin((0, _utils.loadEnv)({ production: true })), new _dotenvWebpack2.default({ silent: true })],
     module: {
       rules: [{
         test: /\.jsx?$/,
@@ -85,17 +75,9 @@ var _webpack = require('webpack');
 
 var _webpack2 = _interopRequireDefault(_webpack);
 
-var _uglifyjsWebpackPlugin = require('uglifyjs-webpack-plugin');
-
-var _uglifyjsWebpackPlugin2 = _interopRequireDefault(_uglifyjsWebpackPlugin);
-
 var _dotenvWebpack = require('dotenv-webpack');
 
 var _dotenvWebpack2 = _interopRequireDefault(_dotenvWebpack);
-
-var _InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin');
-
-var _InterpolateHtmlPlugin2 = _interopRequireDefault(_InterpolateHtmlPlugin);
 
 var _htmlWebpackPlugin = require('html-webpack-plugin');
 

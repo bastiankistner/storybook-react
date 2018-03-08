@@ -6,6 +6,7 @@ Object.defineProperty(exports, "__esModule", {
 
 exports.default = function (configDir) {
   var config = {
+    mode: 'development',
     devtool: 'cheap-module-source-map',
     entry: {
       manager: [require.resolve('./polyfills'), _server.managerPath],
@@ -16,7 +17,7 @@ exports.default = function (configDir) {
       filename: 'static/[name].bundle.js',
       publicPath: '/'
     },
-    plugins: [new _InterpolateHtmlPlugin2.default(process.env), new _htmlWebpackPlugin2.default({
+    plugins: [new _htmlWebpackPlugin2.default({
       filename: 'index.html',
       chunks: ['manager'],
       data: {
@@ -31,7 +32,11 @@ exports.default = function (configDir) {
         previewHead: (0, _utils2.getPreviewHeadHtml)(configDir)
       },
       template: require.resolve('../iframe.html.ejs')
-    }), new _webpack2.default.DefinePlugin((0, _utils.loadEnv)()), new _webpack2.default.HotModuleReplacementPlugin(), new _caseSensitivePathsWebpackPlugin2.default(), new _server.WatchMissingNodeModulesPlugin(_utils.nodeModulesPaths), new _webpack2.default.ProgressPlugin(), new _dotenvWebpack2.default({ silent: true })],
+    }),
+    // new InterpolateHtmlPlugin(process.env),
+    new _webpack2.default.DefinePlugin((0, _utils.loadEnv)()), new _webpack2.default.HotModuleReplacementPlugin(), new _caseSensitivePathsWebpackPlugin2.default(),
+    // new WatchMissingNodeModulesPlugin(nodeModulesPaths),
+    new _webpack2.default.ProgressPlugin(), new _dotenvWebpack2.default({ silent: true })],
     module: {
       rules: [{
         test: /\.jsx?$/,
@@ -75,10 +80,6 @@ var _webpack2 = _interopRequireDefault(_webpack);
 var _dotenvWebpack = require('dotenv-webpack');
 
 var _dotenvWebpack2 = _interopRequireDefault(_dotenvWebpack);
-
-var _InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin');
-
-var _InterpolateHtmlPlugin2 = _interopRequireDefault(_InterpolateHtmlPlugin);
 
 var _caseSensitivePathsWebpackPlugin = require('case-sensitive-paths-webpack-plugin');
 
