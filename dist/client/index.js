@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.linkTo = exports.action = exports.forceReRender = exports.getStorybook = exports.configure = exports.addDecorator = exports.setAddon = exports.storiesOf = undefined;
+exports.linkTo = exports.action = exports.forceReRender = exports.getStorybook = exports.configure = exports.addParameters = exports.addDecorator = exports.setAddon = exports.storiesOf = undefined;
 
 var _preview = require('./preview');
 
@@ -23,6 +23,12 @@ Object.defineProperty(exports, 'addDecorator', {
   enumerable: true,
   get: function get() {
     return _preview.addDecorator;
+  }
+});
+Object.defineProperty(exports, 'addParameters', {
+  enumerable: true,
+  get: function get() {
+    return _preview.addParameters;
   }
 });
 Object.defineProperty(exports, 'configure', {

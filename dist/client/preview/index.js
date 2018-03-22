@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.forceReRender = exports.configure = exports.getStorybook = exports.clearDecorators = exports.addDecorator = exports.setAddon = exports.storiesOf = undefined;
+exports.forceReRender = exports.configure = exports.getStorybook = exports.clearDecorators = exports.addParameters = exports.addDecorator = exports.setAddon = exports.storiesOf = undefined;
 
 var _extends2 = require('babel-runtime/helpers/extends');
 
@@ -46,18 +46,21 @@ var clientApi = new _client.ClientApi(context);
 var storiesOf = clientApi.storiesOf,
     setAddon = clientApi.setAddon,
     addDecorator = clientApi.addDecorator,
+    addParameters = clientApi.addParameters,
     clearDecorators = clientApi.clearDecorators,
     getStorybook = clientApi.getStorybook;
 exports.storiesOf = storiesOf;
 exports.setAddon = setAddon;
 exports.addDecorator = addDecorator;
+exports.addParameters = addParameters;
 exports.clearDecorators = clearDecorators;
 exports.getStorybook = getStorybook;
 
 
+var channel = void 0;
 if (isBrowser) {
   // setup preview channel
-  var channel = (0, _channelPostmessage2.default)({ page: 'preview' });
+  channel = (0, _channelPostmessage2.default)({ page: 'preview' });
   channel.on('setCurrentStory', function (data) {
     reduxStore.dispatch(_client.Actions.selectStory(data.kind, data.story));
   });
@@ -68,9 +71,13 @@ if (isBrowser) {
 
   // Handle keyboard shortcuts
   _global.window.onkeydown = (0, _key_events.handleKeyboardShortcuts)(channel);
+}
 
-  // Provide access to external scripts
+// Provide access to external scripts if `window` is defined.
+// NOTE this is different to isBrowser, primarily for the JSDOM use case
+if (typeof _global.window !== 'undefined') {
   _global.window.__STORYBOOK_CLIENT_API__ = clientApi;
+  _global.window.__STORYBOOK_ADDONS_CHANNEL__ = channel; // may not be defined
 }
 
 var configApi = new _client.ConfigApi((0, _extends3.default)({ clearDecorators: clearDecorators }, context));

@@ -39,9 +39,7 @@ exports.default = function (configDir) {
         previewHead: (0, _utils2.getPreviewHeadHtml)(configDir)
       },
       template: require.resolve('../iframe.html.ejs')
-    }),
-    // new InterpolateHtmlPlugin(process.env),
-    new _webpack2.default.DefinePlugin((0, _utils.loadEnv)({ production: true })), new _dotenvWebpack2.default({ silent: true })],
+    }), new _InterpolateHtmlPlugin2.default(process.env), new _webpack2.default.DefinePlugin((0, _utils.loadEnv)({ production: true })), new _dotenvWebpack2.default({ silent: true })],
     module: {
       rules: [{
         test: /\.jsx?$/,
@@ -78,6 +76,10 @@ var _webpack2 = _interopRequireDefault(_webpack);
 var _dotenvWebpack = require('dotenv-webpack');
 
 var _dotenvWebpack2 = _interopRequireDefault(_dotenvWebpack);
+
+var _InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin');
+
+var _InterpolateHtmlPlugin2 = _interopRequireDefault(_InterpolateHtmlPlugin);
 
 var _htmlWebpackPlugin = require('html-webpack-plugin');
 

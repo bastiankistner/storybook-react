@@ -86,7 +86,7 @@ function renderMain(data, storyStore, forceRender) {
 
 
   var revision = storyStore.getRevision();
-  var story = storyStore.getStory(selectedKind, selectedStory);
+  var story = storyStore.getStoryWithContext(selectedKind, selectedStory);
   if (!story) {
     _reactDom2.default.render(noPreview, rootEl);
     return null;
@@ -111,12 +111,7 @@ function renderMain(data, storyStore, forceRender) {
   previousStory = selectedStory;
   _reactDom2.default.unmountComponentAtNode(rootEl);
 
-  var context = {
-    kind: selectedKind,
-    story: selectedStory
-  };
-
-  var element = story(context);
+  var element = story();
 
   if (!element) {
     var error = {
